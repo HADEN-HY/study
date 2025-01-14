@@ -1,4 +1,4 @@
-#using USB Mic, led red,green,blue
+#using USB Mic
 #install : 'sudo apt install python3-pyaudio -y' , 'pip3 install speechrecognition == 3.8.0' , 'sudo apt-get install flac'
 #go to goole cloud and make project, making a key
 
