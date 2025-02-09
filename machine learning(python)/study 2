@@ -1,0 +1,31 @@
+# 필요한 라이브러리를 임포트
+import pandas as pd
+import numpy as np
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
+# 데이터 세트를 로드
+df = pd.read_csv('titanic.csv')
+
+# 범주형 데이터를 식별
+categorical_features = ['Sex', 'Embarked', 'Pclass']
+
+# ColumnTransformer 클래스 인스턴스 인스턴스를 구현
+ct = ColumnTransformer(
+    transformers=[
+        ('encoder', OneHotEncoder(), categorical_features)
+    ], remainder='passthrough')  #OneHotEncoder를 범주형 특성에 적용하기 위해 ColumnTransformer를 초기화 , remainder='passthrough' 인자를 사용해 변환되지 않은 특성이 제거되지 않음 
+    
+# fit_transform 메서드를 적용
+X = ct.fit_transform(df)
+
+# 출력 결과를 넘파이 배열로 변환
+X = np.array(X)
+
+# LabelEncoder를 사용해 이진 범주형 데이터를 인코딩
+le = LabelEncoder()
+y = le.fit_transform(df['Survived'])
+
+# 변환된 특성행렬과 종속 변수 벡터를 출력
+print("Updated matrix of features: \n", X)
+print("Updated dependent variable vector: \n", y)
